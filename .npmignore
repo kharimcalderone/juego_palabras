@@ -1,0 +1,7 @@
+demo/*
+dist/drag-drop-touch.debug.esm.js
+node_modules/*
+tests/*
+ts/*
+.gitignore
+server.js
