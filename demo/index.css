@@ -15,14 +15,31 @@
     display: inline-block;
     height: 150px;
     width: 150px;
-    background: lightgrey;
+
+    background: lightgray;
     opacity: 1;
+    text-align: center; /* Center text horizontally */
+    border: 2px solid #ff69b4;
+    border-radius: 10px;
 
     header {
       color: #fff;
       padding: 5px;
       background: #222;
       pointer-events: none;
+    }
+
+    h1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Ensure h1 takes full height of the column */
+      margin: 0; /* Remove default margin */
+      font-size: 80px;
+      /*Agregar estilos de letra para juego infantil*/
+      font-family: 'Comic Neue', cursive;
+      color: #ff69b4; /* Pink color */
+      text-shadow: 2px 2px #ff1493; /* Darker pink shadow */
     }
 
     &.over {
@@ -46,7 +63,6 @@
   }
 }
 
-
 #columns2 {
   display: flex;
   gap: 1rem;
@@ -55,14 +71,32 @@
     display: inline-block;
     height: 150px;
     width: 150px;
-    background: lightgrey;
+
+    background: lightgray;
     opacity: 1;
+    text-align: center; /* Center text horizontally */
+    border: 2px solid #ff69b4;
+    border-radius: 10px;
+
 
     header {
       color: #fff;
       padding: 5px;
       background: #222;
       pointer-events: none;
+    }
+
+    h1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Ensure h1 takes full height of the column */
+      margin: 0; /* Remove default margin */
+      font-size: 80px;
+      /*Agregar estilos de letra para juego infantil*/
+      font-family: 'Comic Neue', cursive;
+      color: #ff69b4; /* Pink color */
+      text-shadow: 2px 2px #ff1493; /* Darker pink shadow */
     }
 
     &.over {
@@ -84,4 +118,44 @@
       height: 50%;
     }
   }
+}
+
+body {
+  font-family: 'Comic Neue', cursive;
+  background-image: url('../assets/img/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  text-align: center;
+}
+
+header h2 {
+  font-size: 5.5em;
+  color: #ff69b4; /* Pink color */
+  text-shadow: 2px 2px #ff1493; /* Darker pink shadow */
+  text-align: center;
+  margin-top: 20px;
+}
+
+header p {
+  font-size: 1.5em;
+  color: #ff69b4;
+  text-align: center;
+}
+
+.transparente{
+  opacity: 0.2;
+}
+
+.hidden{
+  display: none;
 }

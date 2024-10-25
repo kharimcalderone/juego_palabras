@@ -8,7 +8,7 @@ cols.forEach((col) => {
   col.addEventListener(`dragover`, handleDragOver);
   col.addEventListener(`dragleave`, handleDragLeave);
   col.addEventListener(`drop`, handleDrop);
-  // col.addEventListener(`dragend`, handleDragEnd);
+  col.addEventListener(`dragend`, handleDragEnd);
 });
 
 cols2.forEach((col) => {
@@ -17,7 +17,7 @@ cols2.forEach((col) => {
   col.addEventListener(`dragover`, handleDragOver);
   col.addEventListener(`dragleave`, handleDragLeave);
   col.addEventListener(`drop`, handleDrop);
-  // col.addEventListener(`dragend`, handleDragEnd);
+  col.addEventListener(`dragend`, handleDragEnd);
 });
 
 function handleDragStart({ target, dataTransfer }) {
@@ -50,6 +50,7 @@ function handleDragLeave({ target }) {
 }
 
 function handleDragEnd() {
+
   draggable = null;
   cols.forEach((col) => col.classList.remove(`over`));
   cols2.forEach((col) => col.classList.remove(`over`));
@@ -57,13 +58,25 @@ function handleDragEnd() {
 
 function handleDrop(evt) {
   if (draggable === null) return;
-
   evt.stopPropagation();
   evt.stopImmediatePropagation();
   evt.preventDefault();
-
+  
   if (draggable !== this) {
+
+    // Acceder al h1 que esta dentro de draggable 
+    let thisH1 = this.querySelector(`h1`);
+    let draggableH1 = draggable.querySelector(`h1`);
+
+    //comprobar si thisH1 tiene cierta clase
+    if(thisH1.style.display == 'none'){
+      thisH1.style.display = '';
+    }else{
+      thisH1.style.display = 'none';
+    }
+
     swapDom(draggable, this);
+    
   }
 }
 
