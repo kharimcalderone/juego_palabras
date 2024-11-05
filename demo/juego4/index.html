@@ -1,0 +1,197 @@
+﻿<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DragDropTouch</title>
+    <script src="../../dist/drag-drop-touch.esm.min.js?autoload" type="module"></script>
+    <script src="./index.js" type="module" async></script>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+      @font-face {
+          font-family: 'Century Gothic';
+          src: url('../../assets/fonts/CenturyGothic.ttf') format('truetype');
+      }
+      /* Estilos generales */
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Century Gothic';
+        background-color: #f4f4f9;
+      }
+
+      /* Estilos del título y la descripción */
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 0 20px;
+      }
+
+      .header h1 {
+        font-size: 2em;
+        color: #ff69b4;
+        margin: 0;        
+        font-family: 'Nunito', sans-serif;
+        font-weight: bold;
+      }
+
+      .header p {
+        font-size: 1em;
+        color: #333;
+        margin: 5px 0 0;
+      }
+
+      /* Contenedor principal */
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 100%;
+        gap: 5px;
+        padding: 5px;
+      }
+
+      /* Recuadros */
+      .box {
+        flex: 1 0 calc(12.5% - 10px);
+        /* 100% / 8 columnas - espacio entre recuadros */
+        height: 100px;
+        background-color: #6c63ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 20px;
+        border-radius: 5px;
+      }
+
+      .azul{
+        background-color: #63b7ff;
+      }
+
+      .morado{
+        opacity: 50%;
+        border: 3px dashed white;
+      }
+
+      /* Clase de error con efecto de parpadeo */
+      .error {
+        animation: errorShake 0.3s ease-in-out 0s 3 alternate;
+        background-color: #ff0000;
+      }
+
+      @keyframes errorShake {
+        0% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        50% {
+          transform: translateX(5px);
+        }
+        75% {
+          transform: translateX(-5px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      /* Clase de éxito con efecto de parpadeo */
+      .success {
+        animation: successBlink 0.3s ease-in-out 0s 3 alternate;
+      }
+
+      @keyframes successBlink {
+        0% {
+          background-color: #6c63ff;
+        }
+        50% {
+          background-color: #28a745; /* Verde para éxito */
+        }
+        100% {
+          background-color: #6c63ff;
+        }
+      }
+
+
+      /* Adaptación a móviles */
+      @media (max-width: 768px) {
+        .box {
+          flex: 1 0 calc(12.5% - 10px);
+          /* 8 columnas en móvil */
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Contenedor del título y la descripción -->
+    <div class="header">
+      <h1>Juego de Palabras</h1>
+      <p>Arrastra y suelta las letras en el orden correcto para formar la palabra mágica.</p>
+
+    </div>
+
+    <div id="columns" class="container">
+      <!-- Primera fila de 8 recuadros -->
+      <div class="column box morado" draggable="false">
+        <h1 class="transparente">m</h1>
+      </div>
+      <div class="column box morado" draggable="false">
+        <h1 class="transparente">a</h1>
+      </div>
+      <div class="column box morado" draggable="false">
+        <h1 class="transparente">r</h1>
+      </div>
+      <div class="column box morado" draggable="false">
+        <h1 class="transparente">i</h1>
+      </div>
+      <div class="column box morado" draggable="false">
+        <h1 class="transparente">p</h1>
+      </div>
+      <div class="column box morado" draggable="false">
+        <h1 class="transparente">o</h1>
+      </div>
+      <div class="column box morado" draggable="false">
+        <h1 class="transparente">s</h1>
+      </div>
+      <div class="column box morado" draggable="false">
+        <h1 class="transparente">a</h1>
+      </div>
+
+      <div class="column box azul" draggable="true">
+        <h1 class="pieza">m</h1>
+      </div>
+      <div class="column box azul" draggable="true">
+        <h1 class="pieza">a</h1>
+      </div>
+      <div class="column box azul" draggable="true">
+        <h1 class="pieza">r</h1>
+      </div>
+      <div class="column box azul" draggable="true">
+        <h1 class="pieza">i</h1>
+      </div>
+      <div class="column box azul" draggable="true">
+        <h1 class="pieza">p</h1>
+      </div>
+      <div class="column box azul" draggable="true">
+        <h1 class="pieza">o</h1>
+      </div>
+      <div class="column box azul" draggable="true">
+        <h1 class="pieza">s</h1>
+      </div>
+      <div class="column box azul" draggable="true">
+        <h1 class="pieza">a</h1>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</html>

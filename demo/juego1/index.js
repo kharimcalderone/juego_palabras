@@ -86,6 +86,7 @@ function handleDrop(evt) {
     }else{
       mostrarExito(draggable);
       aciertos++;
+      this.style.opacity = '10%';
       if(aciertos >= 8){ //8
         Swal.fire({
           title: 'Felicidades!',

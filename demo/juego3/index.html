@@ -1,0 +1,271 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sumas de Fracciones</title>
+    <script src="../../dist/drag-drop-touch.esm.min.js?autoload" type="module"></script>
+    <script src="./index.js" type="module" async></script>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+
+    <style>
+      @font-face {
+          font-family: 'Century Gothic';
+          src: url('../../assets/fonts/harry2.ttf') format('truetype');
+      }
+      /* Estilos generales */
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Century Gothic';
+        background-color: #f4f4f9;
+      }
+
+      h1{
+        font-family: 'Century Gothic';
+      }
+
+      /* Estilos del título y la descripción */
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 0 20px;
+      }
+
+      .header h1 {
+        font-size: 2em;
+        color: #000;
+        margin: 0;        
+        font-family: 'Nunito', sans-serif;
+        font-weight: bold;
+      }
+
+      .header p {
+        font-size: 1em;
+        color: #333;
+        margin: 5px 0 0;
+      }
+
+      /* Contenedor principal */
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 100%;
+        gap: 5px;
+        padding: 5px;
+      }
+
+      /* Recuadros */
+      .box {
+        flex: 1 0 calc(12.5% - 10px);
+        /* 100% / 8 columnas - espacio entre recuadros */
+        height: 100px;
+        background-color: #6c63ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 20px;
+        border-radius: 5px;
+      }
+
+      .azul{
+        background-color: #63b7ff;
+      }
+
+      .morado{
+        opacity: 50%;
+        border: 3px dashed white;
+      }
+
+      /* Clase de error con efecto de parpadeo */
+      .error {
+        animation: errorShake 0.3s ease-in-out 0s 3 alternate;
+        background-color: #ff0000;
+      }
+
+      @keyframes errorShake {
+        0% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        50% {
+          transform: translateX(5px);
+        }
+        75% {
+          transform: translateX(-5px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      /* Clase de éxito con efecto de parpadeo */
+      .success {
+        animation: successBlink 0.3s ease-in-out 0s 3 alternate;
+      }
+
+      @keyframes successBlink {
+        0% {
+          background-color: #6c63ff;
+        }
+        50% {
+          background-color: #28a745; /* Verde para éxito */
+        }
+        100% {
+          background-color: #6c63ff;
+        }
+      }
+
+
+      /* Adaptación a móviles */
+      @media (max-width: 768px) {
+        .box {
+          flex: 1 0 calc(12.5% - 10px);
+          /* 8 columnas en móvil */
+        }
+      }
+      
+      .fraction {
+        display: inline-block;
+        text-align: center;
+        font-size: 50px;
+        font-weight: 1500;
+      }
+      .numerator {
+        border-bottom: 1px solid black;
+        display: block;
+      }
+      .denominator {
+        display: block;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <!-- Contenedor del título y la descripción -->
+    <div class="header">
+      <p style="font-size: 60px;">Juego de Fracciones Mágicas.</p>
+      <p style="font-size: 40px;">Selecciona la opcion correcta.</p>
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <span class="fraction">
+          <span id="num1" class="numerator">1</span>
+          <span id="den1" class="denominator">2</span>
+        </span>
+        
+        <span style="font-size: 30px; font-weight: 900; margin: 0 10px;"> + </span>
+        
+        <span class="fraction">
+          <span id="num2" class="numerator">1</span>
+          <span id="den2" class="denominator">2</span>
+        </span>
+        <!-- tres botones con estilo de harry potter en otra fila para seleccionar la respuesta-->
+        </div>
+        <div style="display: flex; justify-content: center; margin-top: 20px;">
+          <button class="btn btn-secondary fraction" style="font-family: 'Century Gothic'; margin: 0 10px; font-size: 10px;">1</button>
+          <button class="btn btn-secondary fraction" style="font-family: 'Century Gothic'; margin: 0 10px;">2</button>
+          <button class="btn btn-secondary fraction" style="font-family: 'Century Gothic'; margin: 0 10px;">3</button>
+        </div>
+        <!-- Boton de actualizar pagina -->
+        <div style="display: flex; justify-content: center; margin-top: 20px;">
+          <a class="btn btn-secondary" style="font-family: 'Century Gothic'; margin: 0 10px;" onclick="location.reload();">Actualizar</a>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    function gcd(a, b) {
+        return b === 0 ? a : gcd(b, a % b);
+    }
+
+    function simplifyFraction(numerator, denominator) {
+        const divisor = gcd(numerator, denominator);
+        return [numerator / divisor, denominator / divisor];
+    }
+
+    let sumNum = 0;
+    let sumDen = 0;
+
+    function generateFractionSum() {
+      let num1, num2, den1, den2, commonDenominator, adjustedNum1, adjustedNum2;
+
+      do {
+        num1 = Math.floor(Math.random() * 10) + 1;
+        num2 = Math.floor(Math.random() * 10) + 1;
+        den1 = Math.floor(Math.random() * 10) + 1;
+        den2 = Math.floor(Math.random() * 10) + 1;
+
+        commonDenominator = den1 * den2;
+        adjustedNum1 = num1 * den2;
+        adjustedNum2 = num2 * den1;
+        sumNum = adjustedNum1 + adjustedNum2;
+        sumDen = commonDenominator;
+
+        [sumNum, sumDen] = simplifyFraction(sumNum, sumDen);
+      } while (sumNum > 9 || sumDen > 9);
+
+      document.getElementById('num1').textContent = num1;
+      document.getElementById('num2').textContent = num2;
+      document.getElementById('den1').textContent = den1;
+      document.getElementById('den2').textContent = den2;
+
+      const correctButtonIndex = Math.floor(Math.random() * 3);
+      const buttons = document.querySelectorAll('button');
+      buttons[correctButtonIndex].innerHTML = `
+        <span class="fraction">
+          <span class="numerator">${sumNum}</span>
+          <span class="denominator">${sumDen}</span>
+        </span>
+      `;
+
+      let incorrectValues = [];
+      while (incorrectValues.length < 2) {
+        let value = Math.floor(Math.random() * 10) + 1;
+        if (value !== sumNum && !incorrectValues.includes(value)) {
+          incorrectValues.push(value);
+        }
+      }
+
+      let incorrectIndex = 0;
+      for (let i = 0; i < buttons.length; i++) {
+        if (i !== correctButtonIndex) {
+          buttons[i].innerHTML = `
+            <span class="fraction">
+              <span class="numerator">${incorrectValues[incorrectIndex]}</span>
+              <span class="denominator">${sumDen}</span>
+            </span>
+          `;
+          incorrectIndex++;
+        }
+      }
+    }
+
+    generateFractionSum();
+
+    // Agregar evento de clic a los botones
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const numerator = parseFloat(button.querySelector('.numerator').textContent);
+        const denominator = parseFloat(button.querySelector('.denominator').textContent);
+        if (numerator / denominator === sumNum / sumDen) {
+          Swal.fire('Correcto!', 'Has seleccionado la respuesta correcta!', 'success');
+        } else {
+          Swal.fire('Incorrecto!', 'Inténtalo de nuevo!', 'error');
+        }
+      });
+    });
+
+  </script>
+</html>

@@ -1,0 +1,21 @@
+﻿[draggable] {
+  user-select: none;
+}
+
+/* .dragging {
+  opacity: 0.5;
+} */
+
+body {
+  background-image: url('../../assets/img/fondo-3.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  margin: 0;
+}
+
+.transparente{
+  opacity: 0.2;
+}
